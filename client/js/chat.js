@@ -62,6 +62,7 @@ const ask_gpt = async (message) => {
 
 		jailbreak = document.getElementById("jailbreak");
 		model = document.getElementById("model");
+		provider = document.getElementById("provider");
 		prompt_lock = true;
 		window.text = ``;
 		window.token = message_id();
@@ -103,6 +104,7 @@ const ask_gpt = async (message) => {
 				action: `_ask`,
 				model: model.options[model.selectedIndex].value,
 				jailbreak: jailbreak.options[jailbreak.selectedIndex].value,
+				provider: provider.options[provider.selectedIndex].value,
 				meta: {
 					id: window.token,
 					content: {

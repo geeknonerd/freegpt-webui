@@ -1,6 +1,9 @@
 # FreeGPT WebUI 
 ## GPT 3.5/4
 
+基于原项目 [freegpt-webui](https://github.com/ramonvc/freegpt-webui)，做了中国本土化修改，修复国内网络环境下无法直接使用的问题
+
+
 ❌🔑 <strong>NOT REQUIRE ANY API KEY</strong> 
 
 This project features a WebUI utilizing the [G4F API](https://github.com/xtekky/gpt4free). <br>
@@ -38,9 +41,6 @@ _Coding to solve as quickly as possible_
 - [x] Improve the Jailbreak functionality
 - [x] Add the GPT-4 model
 - [x] Enhance the user interface
-- [ ] Auto Proxy
-- [ ] Enable editing and creating Jailbreaks/Roles in the WebUI
-- [ ] Migrate the interface to React.js (?)
 
 ## Getting Started :white_check_mark:  
 To get started with this project, you'll need to clone the repository and have [Python](https://www.python.org/downloads/) installed on your system.  
@@ -49,7 +49,7 @@ To get started with this project, you'll need to clone the repository and have [
 Run the following command to clone the repository:  
 
 ```
-git clone https://github.com/ramonvc/freegpt-webui.git
+git clone https://github.com/geeknonerd/freegpt-webui.git
 ```
 
 ### Install Dependencies :wrench: 
@@ -60,6 +60,7 @@ cd freegpt-webui
 
 Install the dependencies:
 ```
+pip install -r requirements-g4f.txt
 pip install -r requirements.txt
 ```
 ## Running the Application :rocket:
@@ -76,20 +77,6 @@ or
 ```
 http://localhost:1338
 ```
-## Auto Proxy 🔑  
-The application includes an auto proxy feature that allows it to work with multiple free proxy servers. 
-The freeGPT API refuses some connections, especially when hosted in the cloud (Azure, AWS, Google Cloud). 
-Auto proxy solves this problem automatically for you. 
-When enabled, the application will automatically fetch and test proxy servers, updating the list of working proxies every 30 minutes.  
-  
-### Enable Auto Proxy
-To enable it, just go to the `config.json` file and change the value of the "use_auto_proxy" to `true`.  
-
-```
-"use_auto_proxy": true
-```
-![use-auto-proxy-gif](https://github.com/ramonvc/gptfree-jailbreak-webui/assets/13617054/f83c6217-411c-404c-9f4c-8ae700a486d1)
-
 
 
 ## Docker 🐳
@@ -99,12 +86,12 @@ Before you start, make sure you have installed [Docker](https://www.docker.com/g
 ### Running the Docker
 Pull the Docker image from Docker Hub:
 ```
-docker pull ramonvc/freegpt-webui
+docker pull geeknonerd/freegpt-webui-cn
 ```
 
 Run the application using Docker:
 ```
-docker run -p 1338:1338 ramonvc/freegpt-webui
+docker run -p 1338:1338 geeknonerd/freegpt-webui-cn
 ```
 
 Access the application in your browser using the URL:

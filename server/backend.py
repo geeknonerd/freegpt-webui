@@ -2,12 +2,15 @@ import re
 import time
 import g4f
 from g4f import ChatCompletion
-from googletrans import Translator
+# from googletrans import Translator
+from lingua import LanguageDetectorBuilder
 from flask import request
 from datetime import datetime
 from requests import get
-from server.auto_proxy import get_random_proxy, update_working_proxies
 from server.config import special_instructions
+
+
+DETECTOR = LanguageDetectorBuilder.from_all_languages().with_low_accuracy_mode().build()
 
 
 class Backend_Api:
@@ -45,10 +48,12 @@ class Backend_Api:
             try:
                 jailbreak = request.json['jailbreak']
                 model = request.json['model']
+                provider = request.json['provider']
                 messages = build_messages(jailbreak)
 
                 # Generate response
-                response = ChatCompletion.create(model=model, stream=True,
+                response = ChatCompletion.create(model=model, stream=False if provider == 'ChatgptLogin' else True,
+                                                 provider=getattr(g4f.Provider, provider),
                                                  messages=messages)
 
                 return self.app.response_class(generate_stream(response, jailbreak), mimetype='text/event-stream')
@@ -75,7 +80,8 @@ def build_messages(jailbreak):
     :return: List of messages for the conversation  
     """
     _conversation = request.json['meta']['content']['conversation']
-    internet_access = request.json['meta']['content']['internet_access']
+    # internet_access = request.json['meta']['content']['internet_access']
+    internet_access = False
     prompt = request.json['meta']['content']['parts'][0]
 
     # Generate system message
@@ -185,8 +191,9 @@ def set_response_language(prompt):
     :param prompt: Prompt dictionary  
     :return: String indicating the language to be used for the response  
     """
-    translator = Translator()
-    detected_language = translator.detect(prompt['content']).lang
+    # translator = Translator()
+    # detected_language = translator.detect(prompt['content']).lang
+    detected_language = DETECTOR.detect_language_of(prompt['content']).name
     return f"You will respond in the language: {detected_language}. "
 
 

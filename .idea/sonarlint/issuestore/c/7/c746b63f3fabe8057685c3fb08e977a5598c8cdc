@@ -1,0 +1,5 @@
+
+|python:S101"eRename class "Backend_Api" to match the regular expression ^_?([A-Z_][a-zA-Z0-9]*|[a-z_][a-z0-9_]*)$.(‘¼©æ
+6python:S125"Remove this commented out code.(›³³™
+rpython:S3776Š"TRefactor this function to reduce its Cognitive Complexity from 16 to the 15 allowed.(›ß…†üÿÿÿÿ
+ppython:S1542Ã"RRename function "getJailbreak" to match the regular expression ^[a-z_][a-z0-9_]*$.(”Áú‡üÿÿÿÿ
